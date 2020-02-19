@@ -1,0 +1,19 @@
+{
+  "name": "gatsby-source-strava",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gatsby-node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "@r0yhewitt <roy_hewitt@fws.gov>",
+  "license": "SAX-PD",
+  "dependencies": {
+    "async-await-foreach": "^1.0.4",
+    "axios": "^0.18.0",
+    "node-persist": "^3.0.5",
+    "strava": "0.0.2",
+    "strava-v3": "^2.0.4"
+  }
+}
