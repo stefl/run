@@ -1,1 +1,2 @@
-import "./src/css/style.css";
+import 'typeface-nunito'
+import "./src/css/style.css"

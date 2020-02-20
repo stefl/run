@@ -26,7 +26,8 @@
     "react-dom": "16.12.0",
     "react-helmet": "5.2.1",
     "sanitize-html": "^1.21.1",
-    "strava-v3": "^2.0.4"
+    "strava-v3": "^2.0.4",
+    "typeface-nunito": "^1.1.3"
   },
   "keywords": [
     "gatsby",
