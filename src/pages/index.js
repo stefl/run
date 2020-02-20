@@ -1,11 +1,8 @@
 import React from "react";
-
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-import catAndHumanIllustration from "../images/cat-and-human-illustration.svg";
 import { graphql } from 'gatsby'
-import SimpleFormat from '../components/simpleFormat'
-import NonStretchedImage from '../components/NonStretchedImage'
+import Workout from '../components/Workout'
 
 function IndexPage({data}) {
   console.log(data)
@@ -18,11 +15,7 @@ function IndexPage({data}) {
 
       <section className="text-left">
         {data.allStravaWorkout.nodes.map((stravaWorkout) => 
-          <div key={stravaWorkout.id} style={{paddingTop: '2em'}}>
-            <h1 className="text-2xl"><a href={stravaWorkout.fields.slug}>{stravaWorkout.name}</a></h1>
-            {stravaWorkout.image && <NonStretchedImage fluid={stravaWorkout.image.childImageSharp.fluid} />}
-            <SimpleFormat text={ stravaWorkout.description } />
-          </div>
+          <Workout key={stravaWorkout.id} workout={stravaWorkout} detailed={false} />
         )}
       </section>
     </Layout>
@@ -35,8 +28,8 @@ export const query = graphql`
       nodes {
         image {
           childImageSharp {
-            fluid(maxWidth: 600) {
-              ...GatsbyImageSharpFluid_noBase64
+            fluid(maxWidth: 768) {
+              ...GatsbyImageSharpFluid
               presentationWidth
             }
           }

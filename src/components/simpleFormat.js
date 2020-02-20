@@ -26,11 +26,11 @@ export default class SimpleFormat extends Component {
     const { wrapperTag, wrapperTagProps, postfix } = this.props
     return createElement(wrapperTag, wrapperTagProps, this.paragraphs().map((paragraph, index) => (
       (postfix && index === this.paragraphs().length - 1)
-      ? <p key={ index } className="mb-4">
+      ? <p key={ index } className="mb-4 font-sans text-base">
         <span dangerouslySetInnerHTML={{ __html: paragraph }} />
         { postfix }
       </p>
-      : <p className="mb-4" key={ index } dangerouslySetInnerHTML={{ __html: paragraph }} />
+      : <p className="mb-4 font-sans text-base" key={ index } dangerouslySetInnerHTML={{ __html: paragraph }} />
     )))
   }
 }

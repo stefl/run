@@ -1,11 +1,8 @@
 import React from "react";
-
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { graphql, useStaticQuery } from 'gatsby'
-import Img from "gatsby-image"
-import SimpleFormat from '../components/simpleFormat'
-import NonStretchedImage from '../components/NonStretchedImage'
+import Workout from '../components/Workout'
 
 function PostPage({data}) {
   const {stravaWorkout} = data
@@ -16,13 +13,8 @@ function PostPage({data}) {
         title="Home"
       />
 
-      <section className="text-left">
-        <div key={stravaWorkout.id} style={{paddingTop: '2em'}}>
-          <h1 className="text-2xl">{stravaWorkout.name}</h1>
-          {stravaWorkout.image && <NonStretchedImage fluid={stravaWorkout.image.childImageSharp.fluid} />}
-
-          <SimpleFormat text={ stravaWorkout.description } />
-        </div>
+      <section className="text-left" style={{maxWidth: '48rem'}}>
+        <Workout workout={stravaWorkout} />
       </section>
     </Layout>
   );
@@ -33,8 +25,8 @@ export const query = graphql`
     stravaWorkout(fields: { slug: {eq: $slug} }) {
       image {
         childImageSharp {
-          fluid(maxWidth: 600) {
-            ...GatsbyImageSharpFluid_noBase64
+          fluid(maxWidth: 768) {
+            ...GatsbyImageSharpFluid
             presentationWidth
           }
         }
