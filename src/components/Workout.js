@@ -11,6 +11,40 @@ function secondsToHoursMinutesSeconds(seconds) {
   return t.toISOString().substr(11, 8)
 }
 
+function WorkoutStats({workout} ) {
+  const speed = Math.round(1 / (workout.average_speed * 60) * 100000) / 100
+
+  return <h2 className="text-xl mb-4">
+    <span className="mr-5">
+      {Math.round(workout.distance / 10) / 100} km
+    </span>
+    <span className="mr-5">
+      {secondsToHoursMinutesSeconds(workout.moving_time)}
+    </span>
+    <span className="">
+      { Math.floor(speed)}:{Math.round((speed*100) % 60)} min/km
+    </span>
+  </h2>
+}
+
+function WorkoutTitle({title, detailed}) {
+  return <h1 className="text-3xl">
+    {detailed ? <span>{title}</span> : <Link to={workout.fields.slug}>{title}</Link>}
+  </h1>
+}
+
+function WorkoutDescription({description}) {
+  return <div>
+    <SimpleFormat text={description } />
+  </div>
+}
+
+function WorkoutImage({image}) {
+  return <div className="mb-4 bg-gray-300 w-full">
+    <NonStretchedImage fluid={image.childImageSharp.fluid} />
+  </div>
+}
+
 // distance - metres
 // moving_time - seconds
 // elev - metres
@@ -18,32 +52,21 @@ function secondsToHoursMinutesSeconds(seconds) {
 // 
 
 function Workout({workout, detailed}) {
-  const speed = Math.round(1 / (workout.average_speed * 60) * 100000) / 100
 
   const hasDescription = (workout.description && workout.description !== 'null')
 
-  return <div key={workout.id} className={hasDescription ? 'text-blue-800' : 'text-gray-500'} style={{paddingTop: '2em', maxWidth: '768px'}}>
+  return <div 
+    key={workout.id} 
+    className={hasDescription ? 'text-blue-800' : 'text-gray-500'} 
+    style={{paddingTop: '2em', maxWidth: '768px'}}>
 
-    <h1 className="text-3xl">
-      {detailed ? <span>{workout.name}</span> : <Link to={workout.fields.slug}>{workout.name}</Link>}
-    </h1>
+    <WorkoutTitle title={workout.name} detailed={detailed} />
     
-    <h2 className="text-xl mb-4">
-      <span className="mr-5">
-        {Math.round(workout.distance / 10) / 100} km
-      </span>
-      <span className="mr-5">
-        {secondsToHoursMinutesSeconds(workout.moving_time)}
-      </span>
-      <span className="">
-        { Math.floor(speed)}:{Math.round((speed*100) % 60)} min/km
-      </span>
-    </h2>
-    {workout.image && <div className="mb-4 bg-gray-300 w-full"><NonStretchedImage fluid={workout.image.childImageSharp.fluid} /></div>}
+    <WorkoutStats workout={workout} />
 
-    {hasDescription && <div>
-      <SimpleFormat text={ workout.description } />
-    </div>}
+    {workout.image && <WorkoutImage image={workout.image} />}
+
+    {hasDescription && <WorkoutDescription description={workout.description} />}
 
     {detailed && (typeof(window) !== 'undefined') &&
       <div>

@@ -1,19 +1,20 @@
-import { Map, Marker, Popup, Polyline, TileLayer } from 'react-leaflet'
+import { Map, Marker, Popup, Polyline, TileLayer } from 'react-leaflet-universal'
 import React from 'react'
 import googlePolyline from 'google-polyline'
+import L from 'leaflet'
 import { SizeMe } from 'react-sizeme'
 
 function WorkoutMap({polyline}) {
   if(typeof(window) === 'undefined') {
     return <div />
   }
+  return null
   return <SizeMe>{({ size }) => 
     <WorkoutMapCalculations polyline={polyline} size={size} />
   }</SizeMe>
 }
 
 function WorkoutMapCalculations({polyline, size}) {
-  const L = require('leaflet')
   const decoded = googlePolyline.decode(polyline)
 
   const positions = decoded.map(i => new L.LatLng(i[0], i[1]))
@@ -43,7 +44,10 @@ function WorkoutMapCalculations({polyline, size}) {
 }
 
 function WorkoutPolyLine({positions, center, zoom}) {
-   return <Map style={{height: '640px'}} zoom={zoom} center={center}>
+  if (typeof window === 'undefined') {
+    return <div style={{height: '640px'}} />
+  }
+  return <Map style={{height: '640px'}} zoom={zoom} center={center}>
     <TileLayer
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
