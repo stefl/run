@@ -27,9 +27,9 @@ function WorkoutStats({workout} ) {
   </h2>
 }
 
-function WorkoutTitle({title, detailed}) {
+function WorkoutTitle({title, slug, detailed}) {
   return <h1 className="text-3xl">
-    {detailed ? <span>{title}</span> : <Link to={workout.fields.slug}>{title}</Link>}
+    {detailed ? <span>{title}</span> : <Link to={slug}>{title}</Link>}
   </h1>
 }
 
@@ -60,7 +60,7 @@ function Workout({workout, detailed}) {
     className={hasDescription ? 'text-blue-800' : 'text-gray-500'} 
     style={{paddingTop: '2em', maxWidth: '768px'}}>
 
-    <WorkoutTitle title={workout.name} detailed={detailed} />
+    <WorkoutTitle title={workout.name} detailed={detailed} slug={workout.fields.slug} />
     
     <WorkoutStats workout={workout} />
 
