@@ -5,7 +5,10 @@ import SEO from "../components/seo";
 import dogIllustration from "../images/dog-illustration.svg";
 
 function DonatePage() {
-  window.location.href='https://uk.virginmoneygiving.com/fundraiser-display/showROFundraiserPage?userUrl=StefL&pageUrl=2'
+  if(typeof(window) !== 'undefined') {
+    window.location.href='https://uk.virginmoneygiving.com/fundraiser-display/showROFundraiserPage?userUrl=StefL&pageUrl=2'
+  }
+  return <div />
 }
 
 export default DonatePage;
