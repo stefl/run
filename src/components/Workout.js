@@ -4,25 +4,29 @@ import SimpleFormat from './simpleFormat'
 import Img from "gatsby-image"
 import Link from "gatsby-link"
 import WorkoutMap from './WorkoutMap'
+import { Watch, TrendingUp, Zap } from 'react-feather';
 
 function secondsToHoursMinutesSeconds(seconds) {
   let t = new Date(null)
   t.setSeconds(seconds)
-  return t.toISOString().substr(11, 8)
+  return t.toISOString().substr(11, 8).replace(/00:/,'')
 }
 
 function WorkoutStats({workout} ) {
   const speed = Math.round(1 / (workout.average_speed * 60) * 100000) / 100
 
   return <h2 className="text-xl mb-4">
-    <span className="mr-5">
-      {Math.round(workout.distance / 10) / 100} km
+    <span className="mr-5 inline-block">
+      <span className="inline-block mr-2"><TrendingUp size={16} /></span> 
+      <span className="inline-block">{Math.round(workout.distance / 10) / 100} km</span>
     </span>
-    <span className="mr-5">
-      {secondsToHoursMinutesSeconds(workout.moving_time)}
+    <span className="mr-5 inline-block">
+      <span className="inline-block mr-2"><Watch size={16} /></span> 
+      <span className="inline-block">{secondsToHoursMinutesSeconds(workout.moving_time)}</span>
     </span>
-    <span className="">
-      { Math.floor(speed)}:{Math.round((speed*100) % 60)} min/km
+    <span className="inline-block">
+      <span className="inline-block mr-2"><Zap size={16} /></span> 
+      <span className="inline-block">{ Math.floor(speed)}:{Math.round((speed*100) % 60)} min/km</span>
     </span>
   </h2>
 }
@@ -35,7 +39,7 @@ function WorkoutTitle({title, slug, detailed}) {
 
 function WorkoutMeta({date}) {
   return <p className="text-xs tracking-widest text-gray-500">
-    {(new Date(date)).toLocaleString()}
+    {(new Date(date)).toLocaleString().replace()}
   </p>
 }
 
