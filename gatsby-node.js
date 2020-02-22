@@ -4,7 +4,10 @@ const kebabCase = require(`lodash.kebabcase`)
 
 exports.createPages = async function({ graphql, actions }) {
   console.log('*** CREATE PAGES ***')
-  const { createPage } = actions
+  const { createPage, createRedirect } = actions
+
+  createRedirect({ fromPath: '/donate', toPath: 'https://uk.virginmoneygiving.com/fundraiser-display/showROFundraiserPage?userUrl=StefL&pageUrl=2', isPermanent: true });
+  
   const postLayout = path.resolve(`./src/layouts/post.js`)
 
   const { data } = await graphql(`
