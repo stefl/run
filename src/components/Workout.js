@@ -36,7 +36,7 @@ function Workout({workout, detailed}) {
     {workout.image && <div className="mb-4 bg-gray-300 w-full"><NonStretchedImage fluid={workout.image.childImageSharp.fluid} /></div>}
 
     <SimpleFormat text={ workout.description } />
-    {detailed &&
+    {detailed && (typeof(window) !=== 'undefined') &&
       <div>
         <WorkoutMap polyline={workout.map.summary_polyline} />
       </div>
