@@ -45,7 +45,7 @@ function Workout({workout, detailed}) {
       <SimpleFormat text={ workout.description } />
     </div>}
 
-    {detailed &&
+    {detailed && (typeof(window) !== 'undefined') &&
       <div>
         <WorkoutMap polyline={workout.map.summary_polyline} />
       </div>
