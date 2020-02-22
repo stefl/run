@@ -33,14 +33,20 @@ function WorkoutTitle({title, slug, detailed}) {
   </h1>
 }
 
+function WorkoutMeta({date}) {
+  return <p className="text-xs tracking-widest text-gray-500">
+    {(new Date(date)).toLocaleString()}
+  </p>
+}
+
 function WorkoutDescription({description}) {
-  return <div>
+  return <div className="mb-8">
     <SimpleFormat text={description } />
   </div>
 }
 
 function WorkoutImage({image}) {
-  return <div className="mb-4 bg-gray-300 w-full">
+  return <div className="mb-8 bg-gray-300 w-full">
     <NonStretchedImage fluid={image.childImageSharp.fluid} />
   </div>
 }
@@ -59,6 +65,8 @@ function Workout({workout, detailed}) {
     key={workout.id} 
     className={hasDescription ? 'text-blue-800' : 'text-gray-500'} 
     style={{paddingTop: '2em', maxWidth: '768px'}}>
+
+    <WorkoutMeta date={workout.start_date_local} />
 
     <WorkoutTitle title={workout.name} detailed={detailed} slug={workout.fields.slug} />
     

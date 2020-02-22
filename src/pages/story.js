@@ -14,13 +14,13 @@ function StoryPage() {
       <section className="pt-8">
         <h2 className="pb-4">Hi, I'm Stef!</h2>
 
-        <p className="pb-4">I'm a designer and technologist living in South London, UK. This is my running blog that I've built so that folks who don't <a className="text-blue-500" href="https://www.strava.com/athletes/47920858">follow me on Strava</a> can also see my updates.</p>
+        <p className="pb-4">I'm a designer and technologist living in South London, UK. You can find me on <a href="https://twitter.com/stef" className="text-blue-500">Twitter</a> and <a href="https://instagram.com/stef" className="text-blue-500">Instagram</a> as @stef. This is my running blog that I've built so that folks who don't <a className="text-blue-500" href="https://www.strava.com/athletes/47920858">follow me on Strava</a> can also see my updates.</p>
 
         <p className="pb-4">I was an absolute beginner at running in September 2019, when my wife, Emily, suggested that I should try out Couch to 5k because I was, well, developing a bit of a paunch and was in need of introducing some exercise into my weekly routine.</p>
 
         <p className="pb-4">Since then I've gone from being unable to run for more than a minute without being puffed out, to taking on the London Marathon this April.</p>
 
-        <p className="pb-4">It's quite a challenge, so I've been writing and sharing the experience along the way. First on this Twitter thread, and now on Strava and <a className="text-blue-500" href="https://instagram.com/stef">on Instagram</a>.</p>
+        <p className="pb-4">It's quite a challenge, so I've been writing and sharing the experience along the way. First on <a className="text-blue-500" href="https://twitter.com/stef/status/1184012953550491648">this Twitter thread</a>, and now <a className="text-blue-500" href="https://www.strava.com/athletes/47920858">on Strava</a> and <a className="text-blue-500" href="https://instagram.com/stef">on Instagram</a>.</p>
 
         <p className="pb-4">Other than running for fitness, and mental health, there's another part to the story. Emily and I have four children together, and over the Summer of 2019, two were diagnosed with autism. They're awesome, intelligent, creative and inspiring kids, but they find a few things difficult which makes home life somewhat challenging at times! At the same time, I found that a lot of what we were reading about their experience of the world resonated, and I took had a diagnosis.</p>
 

@@ -24,13 +24,14 @@ export default class SimpleFormat extends Component {
 
   render () {
     const { wrapperTag, wrapperTagProps, postfix } = this.props
+    const classes = "mb-4 font-sans text-base md:text-lg lg:text-lg xl:text-lg"
     return createElement(wrapperTag, wrapperTagProps, this.paragraphs().map((paragraph, index) => (
       (postfix && index === this.paragraphs().length - 1)
-      ? <p key={ index } className="mb-4 font-sans text-base">
+      ? <p key={ index } className={classes}>
         <span dangerouslySetInnerHTML={{ __html: paragraph }} />
         { postfix }
       </p>
-      : <p className="mb-4 font-sans text-base" key={ index } dangerouslySetInnerHTML={{ __html: paragraph }} />
+      : <p className={classes} key={ index } dangerouslySetInnerHTML={{ __html: paragraph }} />
     )))
   }
 }
