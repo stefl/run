@@ -28,7 +28,9 @@ function StoryPage() {
 
         <p className="pb-4">If you'd like to support me in this challenge, <Link to="/donate"><a className="text-blue-500" >please donate</a></Link>. I'm really grateful for everyone who has backed me to do this so far. Here's to getting to the finish line uninjured and in a good time!</p>
 
-        <p className="pb-4">Cheers, Stef</p>
+        <p className="pb-16">Cheers, Stef</p>
+
+        <p className="pb-16"><a className="text-blue-500" href="https://github.com/stefl/run">The code for this site is on Github</a>.</p>
       </section>
     </Layout>
   );

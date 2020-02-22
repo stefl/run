@@ -17,7 +17,9 @@ function PostPage({data}) {
       <section className="text-left" style={{maxWidth: '48rem'}}>
         <Workout workout={stravaWorkout} detailed={true} />
 
-        <Link className="text-red-600" to="/">All runs</Link>
+        <div className="pt-16 pb-16 text-blue-500">
+          <Link to="/"><a  >View all runs</a></Link>
+        </div>
       </section>
     </Layout>
   );
