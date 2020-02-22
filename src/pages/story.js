@@ -26,7 +26,7 @@ function StoryPage() {
 
         <p className="pb-4">You can <a className="text-blue-500" href="https://medium.com/@stef/why-im-running-the-london-marathon-for-team-autism-8fb19c8191de">read the full story in my blog post</a>, but suffice to say, I've encountered some discomfort talking about it, and it concerns me that something that is so common has a taboo around it. So I'm running to raise funds for the National Autistic Society who do great work countering that stigma, as well as supporting autistic folks who have much greater care needs than our family.</p>
 
-        <p className="pb-4">If you'd like to support me in this challenge, <Link to="/donate"><a className="text-blue-500" >please donate</a></Link>. I'm really grateful for everyone who has backed me to do this so far. Here's to getting to the finish line uninjured and in a good time!</p>
+        <p className="pb-4">If you'd like to support me in this challenge, <Link to="/donate" className="text-blue-500">please donate></Link>. I'm really grateful for everyone who has backed me to do this so far. Here's to getting to the finish line uninjured and in a good time!</p>
 
         <p className="pb-16">Cheers, Stef</p>
 
