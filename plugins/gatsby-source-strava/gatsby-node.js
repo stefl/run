@@ -4,37 +4,8 @@ const { createRemoteFileNode } = require("gatsby-source-filesystem")
 const strava = require('strava-v3')
 const storage = require('node-persist')
 
-// curl -X POST https://www.strava.com/api/v3/oauth/token \
-//   -d client_id=ReplaceWithClientID \
-//   -d client_secret=ReplaceWithClientSecret \
-//   -d code=ReplaceWithCode \
-//   -d grant_type=authorization_code
-
-const getAccessDetailsFromCode = config => {
-  return axios
-    .post(`https://www.strava.com/api/v3/oauth/token`, {
-      grant_type: 'authorization_code',
-      code: config.code,
-      client_id: config.id,
-      client_secret: config.secret,
-    })
-    .catch(err => {
-      throw err
-    })
-}
-
-const getAccessToken = config => {
-  return axios
-    .post(`https://www.strava.com/oauth/token`, {
-      grant_type: 'refresh_token',
-      refresh_token: config.refresh_token,
-      client_id: config.id,
-      client_secret: config.secret,
-    })
-    .catch(err => {
-      throw err
-    })
-}
+// To use this, you need to have a server running that provides
+// a refreshed access token to Gatsby for each deployment
 
 const getAccessTokenFromServer = config => {
   return axios
@@ -44,7 +15,6 @@ const getAccessTokenFromServer = config => {
       throw err
     })
 }
-
 
 const processWorkout = (workout, createNodeId, createContentDigest) => {
   return Object.assign({}, workout, {
@@ -87,16 +57,6 @@ exports.sourceNodes = async (
 
   } )
 
-  if(configOptions.code) {
-    // Go to https://www.strava.com/oauth/authorize?scope=read,activity:read&client_id=42871&response_type=code&redirect_uri=http://run.stef.io&approval_prompt=force
-    const codeResponse = await getAccessDetailsFromCode(configOptions)
-    console.log('Copy and paste these values into your config:')
-    console.log('---')
-    console.log(codeResponse.data)
-    console.log('---')
-    throw('Do not continue')
-  }
-
   const response = await getAccessTokenFromServer(configOptions)
 
   console.log('Refreshed Access Token', response.data)
@@ -105,17 +65,41 @@ exports.sourceNodes = async (
   const config = {
     access_token
   }
-  console.log({config})
   strava.config(config)
 
-  const activities = await strava.athlete.listActivities({access_token})
+  let done = false
+  let page = 1
+  let activities = []
+  while(!done) {
+    let new_activities = await strava.athlete.listActivities({access_token, page})
+    console.log(`Got activities page ${page}`)
+    if(new_activities.length === 0) {
+      console.log('Done!')
+      done = true
+    } else {
+      activities = activities.concat(new_activities)
+    }
+    page = page + 1
+  }
+
+  console.log(`Found ${activities.length} activities`)
 
   for(activity of activities) {
     let wk 
     wk = await storage.getItem(`${activity.id}`)
+    if(wk) {
+      console.log(`Cache hit - ${activity.id}`)
+    }
     if(!wk) {
       wk = await strava.activities.get({access_token, id: activity.id})
-      await storage.setItem(`${activity.id}`, wk)
+      let ttl = 60 * 60 * 1000
+      let start_date = new Date(activity.start_date)
+      if( start_date < (new Date() - 7)) {
+        ttl = (7 + 7 * Math.random()) * 24 * 60 * 60 * 1000
+      } 
+      // Check old records once every week or fortnight at random 
+      // to keep deploys quick
+      await storage.setItem(`${activity.id}`, wk, {ttl})
     }
 
     const nodeData = processWorkout(
@@ -126,33 +110,9 @@ exports.sourceNodes = async (
     await createNode(nodeData)
   }
 
-  console.log('Complete adding activities')
+  console.log('Completed adding activities')
 
   return
-
-  // return new Promise((resolve, reject) => {
-  //   strava.athlete.activities.get( (err, res) => {
-  //     //console.log(res)
-  //     if (err) reject(err)
-
-  //     res.forEach(workout => {
-  //       strava.activities.get(workout.id, (aErr, aRes) => {
-
-  //         //console.log(aRes)
-
-  //         if (aErr) reject(aErr)
-
-  //         const nodeData = processWorkout(
-  //           aRes,
-  //           createNodeId,
-  //           createContentDigest
-  //         )
-  //         createNode(nodeData)
-  //       })
-  //     })
-  //     resolve()
-  //   })
-  // })
 }
 
 exports.createSchemaCustomization = ({ actions }) => {

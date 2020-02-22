@@ -1,6 +1,8 @@
 import { graphql, useStaticQuery, Link } from "gatsby";
 import React, { useState } from "react";
 
+const navMenuClasses = "block md:inline-block mt-4 md:mt-0 md:ml-6 no-underline text-green-500"
+const navButtonClasses = "block md:inline-block mt-4 md:mt-0 md:ml-6 no-underline text-white bg-green-500 px-3 py-2 rounded"
 function Header() {
   const [isExpanded, toggleExpansion] = useState(false);
   const { site } = useStaticQuery(graphql`
@@ -14,25 +16,16 @@ function Header() {
   `);
 
   return (
-    <header className="bg-teal-700">
-      <div className="flex flex-wrap items-center justify-between max-w-4xl mx-auto p-4 md:p-8">
-        <Link className="flex items-center no-underline text-white" to="/">
-          <svg
-            className="fill-current h-8 mr-2 w-8"
-            height="54"
-            viewBox="0 0 54 54"
-            width="54"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" />
-          </svg>
+    <header>
+      <div className="flex flex-wrap items-center justify-between mx-auto">
+        <Link className="flex items-center no-underline text-blue-500" to="/">          
           <span className="font-bold text-xl tracking-tight">
             {site.siteMetadata.title}
           </span>
         </Link>
 
         <button
-          className="block md:hidden border border-white flex items-center px-3 py-2 rounded text-white"
+          className="block md:hidden border border-white flex items-center px-3 py-2 rounded text-green-500"
           onClick={() => toggleExpansion(!isExpanded)}
         >
           <svg
@@ -53,19 +46,20 @@ function Header() {
           {[
             {
               route: `/`,
-              title: `Home`
+              title: `Progress`
             },
             {
-              route: `/about`,
-              title: `About`
+              route: `/story`,
+              title: `Story`
             },
             {
-              route: `/contact`,
-              title: `Contact`
+              route: `/donate`,
+              title: `Donate`,
+              button: true
             }
           ].map(link => (
             <Link
-              className="block md:inline-block mt-4 md:mt-0 md:ml-6 no-underline text-white"
+              className={link.button ? navButtonClasses : navMenuClasses}
               key={link.title}
               to={link.route}
             >

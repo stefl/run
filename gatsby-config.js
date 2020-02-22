@@ -20,11 +20,20 @@ console.log(strava_options)
 
 module.exports = {
   siteMetadata: {
-    title: `Stef running the 2020 London Marathon `,
+    title: `Stef's London Marathon journey`,
     description: `I'm running to raise funds for The National Autistic Society`,
     author: `@stef`
   },
   plugins: [
+    // {
+    //   resolve: 'gatsby-plugin-tinacms',
+    //   options: {
+    //     plugins: [
+    //       "gatsby-tinacms-git",
+    //       "gatsby-tinacms-remark",
+    //     ],
+    //   },
+    // },
     {
       resolve: `gatsby-source-strava`,
       options: strava_options,
@@ -33,13 +42,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-tailwind`,
-        short_name: `starter`,
+        name: `Stef runs the marathon`,
+        short_name: `run.stef`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#4dc0b5`,
         display: `minimal-ui`,
-        icon: `src/images/tailwind-icon.png`
+        icon: `src/images/man-running-light-skin-tone.png`
       }
     },
     `gatsby-plugin-postcss`,

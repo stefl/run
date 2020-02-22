@@ -3,6 +3,13 @@ import NonStretchedImage from './NonStretchedImage'
 import SimpleFormat from './simpleFormat'
 import Img from "gatsby-image"
 import Link from "gatsby-link"
+import WorkoutMap from './WorkoutMap'
+
+function secondsToHoursMinutesSeconds(seconds) {
+  let t = new Date(null)
+  t.setSeconds(seconds)
+  return t.toISOString().substr(11, 8)
+}
 
 // distance - metres
 // moving_time - seconds
@@ -10,7 +17,8 @@ import Link from "gatsby-link"
 // average_speed - meters per second
 // 
 
-function Workout({workout, detailed=false}) {
+function Workout({workout, detailed}) {
+  const speed = Math.round(1 / (workout.average_speed * 60) * 100000) / 100
   return <div key={workout.id} style={{paddingTop: '2em', maxWidth: '768px'}}>
     <h1 className="text-3xl">
       {detailed ? <span>{workout.name}</span> : <Link to={workout.fields.slug}>{workout.name}</Link>}</h1>
@@ -19,15 +27,20 @@ function Workout({workout, detailed=false}) {
         {Math.round(workout.distance / 10) / 100} km
       </span>
       <span className="mr-5">
-        {Math.round(workout.moving_time * 10 / 60) / 10} min
+        {secondsToHoursMinutesSeconds(workout.moving_time)}
       </span>
       <span className="">
-        {Math.round(1 / (workout.average_speed * 60) * 100000) / 100 } min/km
+        { Math.floor(speed)}:{(speed*100) % 60} min/km
       </span>
     </h2>
     {workout.image && <div className="mb-4 bg-gray-300 w-full"><NonStretchedImage fluid={workout.image.childImageSharp.fluid} /></div>}
 
     <SimpleFormat text={ workout.description } />
+    {detailed &&
+      <div>
+        <WorkoutMap polyline={workout.map.summary_polyline} />
+      </div>
+    }
   </div>
 }
 

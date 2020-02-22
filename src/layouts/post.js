@@ -3,6 +3,7 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { graphql, useStaticQuery } from 'gatsby'
 import Workout from '../components/Workout'
+import Header from '../components/Header'
 import Link from 'gatsby-link'
 
 function PostPage({data}) {
@@ -15,7 +16,7 @@ function PostPage({data}) {
       />
 
       <section className="text-left" style={{maxWidth: '48rem'}}>
-        <Workout workout={stravaWorkout} />
+        <Workout workout={stravaWorkout} detailed={true} />
 
         <Link className="text-red-600" to="/">All runs</Link>
       </section>
