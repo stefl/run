@@ -15,10 +15,8 @@ function IndexPage({data}) {
       />
 
       <section className="p-4 bg-gray-200 mt-8">
-        <p className="mb-4"><strong>Hi! I'm Stef</strong>. In September 2019 I started running for the first time, aged 41, having not visited a gym or run since I was at school. In September I used the Couch to 5k app to start running, thing escalated somewhat…</p>
-        <p className="mb-4">I'm now training for the London Marathon in April 🙀.Wish me luck! And it would be awesome if you'd <Link to="/sponsor" className="text-blue-500">sponsor me</Link> for my charity fundraising.</p>
-
-        <p>This is my running blog sharing the ups and downs along the way. <Link className="text-blue-500" to="/story">Read the full story</Link>.</p>
+        <p><strong>Hi! I'm Stef 👋</strong> Last September, I started running, aged 41, having not run since school. Things escalated!
+        I'm now training for the London Marathon in April 🙀 <Link className="text-blue-500 font-bold" to="/story">Read the full story</Link></p>
       </section>
 
       <section className="text-left">
