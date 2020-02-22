@@ -141,7 +141,8 @@ exports.onCreateNode = async ({
     node.photos.primary &&
     (node.photos.primary.urls['600'] !== null)
   ) {
-    console.log(`**** Image URL: ${JSON.stringify(node.photos.primary)}, ${node.photos.primary.urls['600']}`)
+
+    console.log(`Creating local image for ${node.photos.primary.urls['600']}`)
     let fileNode = await createRemoteFileNode({
       url: node.photos.primary.urls['600'], // string that points to the URL of the image
       parentNodeId: node.id, // id of the parent node of the fileNode you are going to create
@@ -152,7 +153,7 @@ exports.onCreateNode = async ({
     })
     // if the file was created, attach the new node to the parent node
     if (fileNode) {
-      console.log('fileNode created')
+      //console.log('fileNode created')
       node.image___NODE = fileNode.id
     }
   }

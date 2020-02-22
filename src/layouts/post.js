@@ -3,7 +3,6 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { graphql, useStaticQuery } from 'gatsby'
 import Workout from '../components/Workout'
-import Header from '../components/Header'
 import Link from 'gatsby-link'
 
 function PostPage({data}) {
