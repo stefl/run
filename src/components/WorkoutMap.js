@@ -1,7 +1,6 @@
 import { Map, Marker, Popup, Polyline, TileLayer } from 'react-leaflet'
 import React from 'react'
 import googlePolyline from 'google-polyline'
-import L from 'leaflet'
 import { SizeMe } from 'react-sizeme'
 
 function WorkoutMap({polyline}) {
@@ -14,7 +13,7 @@ function WorkoutMap({polyline}) {
 }
 
 function WorkoutMapCalculations({polyline, size}) {
-
+  const L = require('leaflet')
   const decoded = googlePolyline.decode(polyline)
 
   const positions = decoded.map(i => new L.LatLng(i[0], i[1]))
