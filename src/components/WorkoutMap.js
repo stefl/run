@@ -5,6 +5,9 @@ import L from 'leaflet'
 import { SizeMe } from 'react-sizeme'
 
 function WorkoutMap({polyline}) {
+  if(typeof(window) === 'undefined') {
+    return <div />
+  }
   return <SizeMe>{({ size }) => 
     <WorkoutMapCalculations polyline={polyline} size={size} />
   }</SizeMe>

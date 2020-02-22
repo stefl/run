@@ -28,6 +28,7 @@
     "react-dom": "16.12.0",
     "react-helmet": "5.2.1",
     "react-leaflet": "^2.6.1",
+    "react-leaflet-universal": "^2.1.0",
     "react-sizeme": "^2.6.12",
     "sanitize-html": "^1.21.1",
     "strava-v3": "^2.0.4",

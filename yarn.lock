@@ -9968,6 +9968,11 @@ react-is@^16.7.0, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
+react-leaflet-universal@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-leaflet-universal/-/react-leaflet-universal-2.1.0.tgz#b9cd1342c0077475cdd314160686d75c3a71bc0e"
+  integrity sha512-K5+FEj6yBPSUMgiKMB4rmwmmZ5VmbX/j+UWwsAqIBqny4poFSsIeovSlolEXFkdZFGTXLKgYSzh89Hiejg04mA==
+
 react-leaflet@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-2.6.1.tgz#e5d6514d2358c51a28e614b8a0ddf8dca56e7179"

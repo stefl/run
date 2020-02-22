@@ -18,7 +18,7 @@ function PostPage({data}) {
         <Workout workout={stravaWorkout} detailed={true} />
 
         <div className="pt-16 pb-16 text-blue-500">
-          <Link to="/"><a  >View all runs</a></Link>
+          <Link to="/">View all runs</Link>
         </div>
       </section>
     </Layout>
