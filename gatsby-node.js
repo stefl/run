@@ -25,7 +25,7 @@ exports.createPages = async function({ graphql, actions }) {
     
   // Creating strava post pages
   posts.forEach((post, index, arr) => {
-    console.log('Post', {post})
+    //console.log('Post', {post})
     const prev = arr[index - 1]
     const next = arr[index + 1]
 
@@ -42,14 +42,14 @@ exports.createPages = async function({ graphql, actions }) {
 }
 
 exports.onCreatePage = async function ({ page }) {
-  console.log('Created Page!', page)
+  //console.log('Created Page!', page)
 }
 
 exports.onCreateNode = async function ({ node, actions, getNode }) {
   const { createNodeField, createPage } = actions
   const postLayout = path.resolve(`./src/layouts/post.js`)
   if (node.internal.type === `StravaWorkout`) {
-    console.log('Created Workout!', {node})
+    //console.log('Created Workout!', {node})
     //const value = createFilePath({ node, getNode })
     const [month, day, year] = new Date(node.start_date)
       .toLocaleDateString("en-EN", {
