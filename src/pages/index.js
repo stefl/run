@@ -11,6 +11,7 @@ function IndexPage({data}) {
     <Layout>
       <SEO
         keywords={[`londonmarathon`, `autism`, `running`, `fundraising`]}
+        title="Stef's London Marathon Journey"
       />
 
       <section className="p-4 bg-gray-200 mt-8 w-full">
