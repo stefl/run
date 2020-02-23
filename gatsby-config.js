@@ -22,7 +22,8 @@ module.exports = {
   siteMetadata: {
     title: `Stef's London Marathon Journey`,
     description: `I'm running to raise funds for The National Autistic Society`,
-    author: `@stef`
+    author: `stef`,
+    defaultImage: `/sharing/social-sharing.jpg`
   },
   plugins: [
     // {
@@ -54,8 +55,7 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#4dc0b5`,
         display: `minimal-ui`,
-        icon: `src/images/man-running-light-skin-tone.png`,
-        defaultImage: `src/images/social-sharing.jpg`
+        icon: `src/images/man-running-light-skin-tone.png`
       }
     },
     `gatsby-plugin-postcss`,
