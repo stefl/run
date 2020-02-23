@@ -106,5 +106,6 @@ module.exports = {
         siteSpeedSampleRate: 10,
         //cookieDomain: "stef.io",
       },
+    }
   ]
 };
