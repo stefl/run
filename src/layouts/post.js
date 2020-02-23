@@ -21,6 +21,7 @@ function PostPage({data}) {
         keywords={[`londonmarathon`, `running`, `fundraising`]}
         title={stravaWorkout.name}
         image={stravaWorkout.image ? stravaWorkout.image.childImageSharp.fluid : null}
+        url={`https://run.stef.io/${stravaWorkout.fields.slug}`}
       />
 
       <section className="text-left" style={{maxWidth: '48rem'}}>

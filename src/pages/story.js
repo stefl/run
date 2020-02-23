@@ -9,6 +9,7 @@ function StoryPage() {
       <SEO
         keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
         title="Story"
+        url="https://run.stef.io/story"
       />
 
       <section className="pt-8">
