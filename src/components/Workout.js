@@ -6,6 +6,12 @@ import Link from "gatsby-link"
 import WorkoutMap from './WorkoutMap'
 import { Watch, TrendingUp, Zap } from 'react-feather';
 
+function pad(num, size) {
+    var s = num+"";
+    while (s.length < size) s = "0" + s;
+    return s;
+}
+
 function secondsToHoursMinutesSeconds(seconds) {
   let t = new Date(null)
   t.setSeconds(seconds)
@@ -26,7 +32,7 @@ function WorkoutStats({workout} ) {
     </span>
     <span className="inline-block">
       <span className="inline-block mr-2"><Zap size={16} /></span> 
-      <span className="inline-block">{ Math.floor(speed)}:{Math.round((speed*100) % 60)} min/km</span>
+      <span className="inline-block">{ Math.floor(speed)}:{pad(Math.round((speed*100) % 60), 2)} min/km</span>
     </span>
   </h2>
 }
