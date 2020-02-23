@@ -3,7 +3,6 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { graphql } from 'gatsby'
 import Workout from '../components/Workout'
-import Link from "gatsby-link"
 
 function IndexPage({data}) {
   console.log(data)
@@ -13,11 +12,6 @@ function IndexPage({data}) {
         keywords={[`londonmarathon`, `autism`, `running`, `fundraising`]}
         title="Stef's London Marathon Journey"
       />
-
-      <section className="p-4 bg-gray-200 mt-8 w-full">
-        <p><strong>Hi! I'm Stef 👋</strong> Last September, I started running, aged 41, having not run since school. Things escalated!
-        I'm now training for the London Marathon in April 🙀 <Link className="text-blue-500 font-bold" to="/story">Read the full story</Link></p>
-      </section>
 
       <section className="text-left w-full">
         {data.allStravaWorkout.nodes.map((stravaWorkout) => 
