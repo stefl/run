@@ -54,7 +54,8 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#4dc0b5`,
         display: `minimal-ui`,
-        icon: `src/images/man-running-light-skin-tone.png`
+        icon: `src/images/man-running-light-skin-tone.png`,
+        defaultImage: `src/images/social-sharing.jpg`
       }
     },
     `gatsby-plugin-postcss`,
