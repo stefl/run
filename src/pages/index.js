@@ -14,12 +14,12 @@ function IndexPage({data}) {
         title="Home"
       />
 
-      <section className="p-4 bg-gray-200 mt-8">
+      <section className="p-4 bg-gray-200 mt-8 w-full">
         <p><strong>Hi! I'm Stef 👋</strong> Last September, I started running, aged 41, having not run since school. Things escalated!
         I'm now training for the London Marathon in April 🙀 <Link className="text-blue-500 font-bold" to="/story">Read the full story</Link></p>
       </section>
 
-      <section className="text-left">
+      <section className="text-left w-full">
         {data.allStravaWorkout.nodes.map((stravaWorkout) => 
           <Workout key={stravaWorkout.id} workout={stravaWorkout} detailed={false} />
         )}

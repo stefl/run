@@ -15,7 +15,7 @@ function secondsToHoursMinutesSeconds(seconds) {
 function WorkoutStats({workout} ) {
   const speed = Math.round(1 / (workout.average_speed * 60) * 100000) / 100
 
-  return <h2 className="text-xl mb-4">
+  return <h2 className="text-l mb-4">
     <span className="mr-5 inline-block">
       <span className="inline-block mr-2"><TrendingUp size={16} /></span> 
       <span className="inline-block">{Math.round(workout.distance / 10) / 100} km</span>
@@ -32,13 +32,14 @@ function WorkoutStats({workout} ) {
 }
 
 function WorkoutTitle({title, slug, detailed}) {
-  return <h1 className="text-3xl">
-    {detailed ? <span>{title}</span> : <Link to={slug}>{title}</Link>}
+  const t = title.replace(/&nbsp;/g, ' ')
+  return <h1 className="text-3xl w-full overflow-hidden leading-tight mb-2">
+    {detailed ? <span>{t}</span> : <Link to={slug}>{t}</Link>}
   </h1>
 }
 
 function WorkoutMeta({date}) {
-  return <p className="text-xs tracking-widest text-gray-500">
+  return <p className="text-xs tracking-widest text-gray-500 mb-2">
     {(new Date(date)).toLocaleString().replace()}
   </p>
 }
