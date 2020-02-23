@@ -18,8 +18,9 @@ function PostPage({data}) {
   return (
     <Layout>
       <SEO
-        keywords={[`londonmarathon`, `autism`, `running`, `fundraising`]}
-        title="Home"
+        keywords={[`londonmarathon`, `running`, `fundraising`]}
+        title={stravaWorkout.name}
+        image={stravaWorkout.image ? stravaWorkout.image.childImageSharp.fluid : null}
       />
 
       <section className="text-left" style={{maxWidth: '48rem'}}>

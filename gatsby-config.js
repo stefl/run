@@ -20,7 +20,7 @@ console.log(strava_options)
 
 module.exports = {
   siteMetadata: {
-    title: `Stef's London Marathon journey`,
+    title: `Stef's London Marathon Journey`,
     description: `I'm running to raise funds for The National Autistic Society`,
     author: `@stef`
   },
