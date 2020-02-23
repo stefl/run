@@ -31,7 +31,7 @@ function SEO({ description, lang, meta, keywords, title, image }) {
         },
         {
           property: 'og:image',
-          content: image || site.siteMetadata.defaultImage
+          content: image || `https://run.stef.io${site.siteMetadata.defaultImage}`
         },
         {
           property: `og:title`,
@@ -59,7 +59,7 @@ function SEO({ description, lang, meta, keywords, title, image }) {
         },
         {
           name: `twitter:image`,
-          content: image || site.siteMetadata.defaultImage
+          content: image || `https://run.stef.io${site.siteMetadata.defaultImage}`
         },
         {
           name: `twitter:description`,
