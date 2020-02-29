@@ -8,6 +8,7 @@ import rehypeReact from "rehype-react"
 import WorkoutDonateCTA from '../components/WorkoutDonateCTA'
 import { Watch, TrendingUp, Zap } from 'react-feather';
 import {WorkoutAggregateStats} from '../components/WorkoutStats'
+import { Calendar } from 'react-feather';
 
 const renderAst = new rehypeReact({
   createElement: React.createElement,
@@ -48,9 +49,12 @@ function PostPage({data}) {
         </h1>
 
         {workouts &&
-          <div>
+          <div className="mb-12">
             <h2 className="text-l w-full overflow-hidden leading-tight mb-2">
-              <span>{post.frontmatter.workoutsFrom}</span> to <span>{post.frontmatter.workoutsTo}</span>
+              <span className="inline-block mr-2"><Calendar size={16} /></span> 
+              <span className="inline-block">
+                <span>{post.frontmatter.workoutsFrom}</span> to <span>{post.frontmatter.workoutsTo}</span>
+              </span>
             </h2>
             <WorkoutAggregateStats workouts={workouts} />
           </div>

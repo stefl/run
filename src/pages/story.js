@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Link from "gatsby-link"
+import WorkoutDonateCTA from '../components/WorkoutDonateCTA'
 
 function StoryPage() {
   const pClasses = "mb-4 font-sans text-base md:text-lg lg:text-lg xl:text-lg"
@@ -14,7 +15,7 @@ function StoryPage() {
       />
 
       <section className="pt-8">
-        <h2 className="pb-4 text-l">Hi, I'm Stef!</h2>
+        <h2 className="pb-4 text-2xl">Hi, I'm Stef!</h2>
 
         <p className={pClasses}>I'm a designer and technologist living in South London, UK. You can find me on <a href="https://twitter.com/stef" className="text-blue-500">Twitter</a> and <a href="https://instagram.com/stef" className="text-blue-500">Instagram</a> as @stef. This is my running blog that I've built so that folks who don't <a className="text-blue-500" href="https://www.strava.com/athletes/47920858">follow me on Strava</a> can also see my updates.</p>
 
@@ -32,6 +33,7 @@ function StoryPage() {
 
         <p className={pClasses}>Cheers, Stef</p>
 
+        <WorkoutDonateCTA />
         <div className="mt-12 mb-12">
           <p className={pClasses}><a className="text-blue-500" href="https://github.com/stefl/run">The code for this site is on Github</a>.</p>
         </div>
