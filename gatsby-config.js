@@ -36,6 +36,32 @@ module.exports = {
     //   },
     // },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/posts`,
+        name: `posts`,
+      },
+    },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        gfm: true,
+        commonmark: true,
+        footnotes: true,
+        pedantic: true,
+        // blocks: ["h2"], Blocks option value can be provided here as an array.
+        excerpt_separator: `<!-- end -->`,
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 768,
+            },
+          },
+        ]
+      }
+    },
+    {
       resolve: 'gatsby-plugin-react-leaflet',
       options: {
         linkStyles: true // (default: true) Enable/disable loading stylesheets via CDN
@@ -77,6 +103,7 @@ module.exports = {
         name: 'itemImage',
       }
     },
+    `gatsby-transformer-yaml`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-client-side-redirect`,

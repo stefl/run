@@ -4,38 +4,7 @@ import SimpleFormat from './simpleFormat'
 import Img from "gatsby-image"
 import Link from "gatsby-link"
 import WorkoutMap from './WorkoutMap'
-import { Watch, TrendingUp, Zap } from 'react-feather';
-
-function pad(num, size) {
-    var s = num+"";
-    while (s.length < size) s = "0" + s;
-    return s;
-}
-
-function secondsToHoursMinutesSeconds(seconds) {
-  let t = new Date(null)
-  t.setSeconds(seconds)
-  return t.toISOString().substr(11, 8).replace(/00:/,'')
-}
-
-function WorkoutStats({workout} ) {
-  const speed = Math.round(1 / (workout.average_speed * 60) * 100000) / 100
-
-  return <h2 className="text-l mb-4">
-    <span className="mr-5 inline-block">
-      <span className="inline-block mr-2"><TrendingUp size={16} /></span> 
-      <span className="inline-block">{Math.round(workout.distance / 10) / 100} km</span>
-    </span>
-    <span className="mr-5 inline-block">
-      <span className="inline-block mr-2"><Watch size={16} /></span> 
-      <span className="inline-block">{secondsToHoursMinutesSeconds(workout.moving_time)}</span>
-    </span>
-    <span className="inline-block">
-      <span className="inline-block mr-2"><Zap size={16} /></span> 
-      <span className="inline-block">{ Math.floor(speed)}:{pad(Math.round((speed*100) % 60), 2)} min/km</span>
-    </span>
-  </h2>
-}
+import {WorkoutStats} from './WorkoutStats'
 
 function WorkoutTitle({title, slug, detailed}) {
   const t = title.replace(/&nbsp;/g, ' ')

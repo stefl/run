@@ -1,14 +1,10 @@
 //const { createFilePath } = require(`gatsby-source-filesystem`)
 const path = require(`path`)
 const kebabCase = require(`lodash.kebabcase`)
+const { slash } = require(`gatsby-core-utils`)
 
-exports.createPages = async function({ graphql, actions }) {
-  console.log('*** CREATE PAGES ***')
-  const { createPage, createRedirect } = actions
-
-  createRedirect({ fromPath: '/donate', toPath: 'https://uk.virginmoneygiving.com/fundraiser-display/showROFundraiserPage?userUrl=StefL&pageUrl=2', isPermanent: true });
-  
-  const postLayout = path.resolve(`./src/layouts/post.js`)
+async function createWorkoutPages(createPage, graphql) {
+  const workoutLayout = path.resolve(`./src/layouts/workout.js`)
 
   const { data } = await graphql(`
     {
@@ -24,36 +20,87 @@ exports.createPages = async function({ graphql, actions }) {
     }
   `)
 
-  const posts = data.allStravaWorkout.nodes
+  const workouts = data.allStravaWorkout.nodes
     
-  // Creating strava post pages
-  posts.forEach((post, index, arr) => {
-    //console.log('Post', {post})
+  // Creating strava workout pages
+  workouts.forEach((workout, index, arr) => {
     const prev = arr[index - 1]
     const next = arr[index + 1]
 
     createPage({
-      path: post.fields.slug,
-      component: postLayout,
+      path: workout.fields.slug,
+      component: workoutLayout,
       context: {
-        slug: post.fields.slug,
+        slug: workout.fields.slug,
         prev: prev,
         next: next,
       },
     })
   })
+  return
 }
 
-exports.onCreatePage = async function ({ page }) {
-  //console.log('Created Page!', page)
+async function createPostPages(createPage, graphql) {
+  const workoutLayout = path.resolve(`./src/layouts/post.js`)
+
+  const { data } = await graphql(`
+    {
+      allMarkdownRemark(
+        limit: 1000
+        filter: { frontmatter: { draft: { ne: true } } }
+      ) {
+        edges {
+          node {
+            fields {
+              slug
+            }
+            frontmatter {
+              workouts
+              workoutsFrom
+              workoutsTo
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  console.log({data})
+
+  data.allMarkdownRemark.edges.forEach(edge => {
+    createPage({
+      path: edge.node.fields.slug, // required
+      component: slash(workoutLayout),
+      context: {
+        slug: edge.node.fields.slug,
+        workouts: edge.node.frontmatter.workouts,
+        workoutsFrom: edge.node.frontmatter.workoutsFrom,
+        workoutsTo: edge.node.frontmatter.workoutsTo,
+      },
+    })
+  })
+
+  return
+}
+
+exports.createPages = async function({ graphql, actions }) {
+  console.log('*** CREATE PAGES ***')
+
+  const { createPage, createRedirect } = actions
+
+  createRedirect({ fromPath: '/donate', toPath: 'https://uk.virginmoneygiving.com/fundraiser-display/showROFundraiserPage?userUrl=StefL&pageUrl=2', isPermanent: true });
+  
+  await createPostPages(createPage, graphql)
+
+  await createWorkoutPages(createPage, graphql)
+
+  return
+  
 }
 
 exports.onCreateNode = async function ({ node, actions, getNode }) {
   const { createNodeField, createPage } = actions
-  const postLayout = path.resolve(`./src/layouts/post.js`)
   if (node.internal.type === `StravaWorkout`) {
-    //console.log('Created Workout!', {node})
-    //const value = createFilePath({ node, getNode })
     const [month, day, year] = new Date(node.start_date)
       .toLocaleDateString("en-EN", {
         year: "numeric",
@@ -61,22 +108,36 @@ exports.onCreateNode = async function ({ node, actions, getNode }) {
         day: "2-digit",
       })
       .split("/")
-    //const slug = value.replace("/posts/", "").replace(/\/$/, "")
-    const url = `/posts/${year}/${month}/${day}-${node.id}`
+    const url = `/workouts/${year}/${month}/${day}-${node.id}`
 
     await createNodeField({
       name: `slug`,
       node,
       value: url,
     })
+  }
 
-    // console.log('Create page', url)
-    // await createPage({
-    //   path: url,
-    //   component: postLayout,
-    //   context: {
-    //     slug: url
-    //   },
-    // })
+  if (node.internal.type === `File`) {
+    const parsedFilePath = path.parse(node.absolutePath)
+    const slug = `/${parsedFilePath.dir.split(`---`)[1]}/`
+    createNodeField({ node, name: `slug`, value: slug })
+  }
+
+  if( node.internal.type === `MarkdownRemark` &&
+    typeof node.slug === `undefined`
+  ) {
+    const fileNode = getNode(node.parent)
+    createNodeField({
+      node,
+      name: `slug`,
+      value: fileNode.fields.slug,
+    })
+
+    // if (node.frontmatter.tags) {
+    //   const tagSlugs = node.frontmatter.tags.map(
+    //     tag => `/tags/${_.kebabCase(tag)}/`
+    //   )
+    //   createNodeField({ node, name: `tagSlugs`, value: tagSlugs })
+    // }
   }
 }
