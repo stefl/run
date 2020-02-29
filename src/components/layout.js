@@ -9,7 +9,6 @@ function Layout(props) {
   const page = children[0]
   const {url} = page.props
   const isStoryPage = url && (url.split("/")[3] === 'story')
-  console.log('Found url', url)
   return (
     <div className="font-sans min-h-screen text-gray-900 w-full">
 

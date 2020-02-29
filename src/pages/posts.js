@@ -1,0 +1,50 @@
+import React from "react";
+import Layout from "../components/layout";
+import SEO from "../components/seo";
+import Post from "../components/Post"
+import Link from "gatsby-link"
+
+function PostsPage({data}) {
+  return <Layout>
+      <SEO
+        keywords={[`londonmarathon`, `autism`, `running`, `fundraising`]}
+        title="Stef's London Marathon Journey"
+      />
+
+      <section className="text-left w-full pt-12">
+        {data.allMarkdownRemark.edges.map((post) => {
+          return (
+            <div>
+              <h1 className="text-2xl"><Link className="flex items-center no-underline text-blue-500" to={post.node.fields.slug}>{post.node.frontmatter.title}</Link></h1>
+              <h2>{post.node.frontmatter.date}</h2>
+            </div>
+          )}
+        )}
+      </section>
+    </Layout>
+}
+
+export const AllPostsQuery = graphql`
+  query {
+    allMarkdownRemark(limit: 1000, filter: {frontmatter: {draft: {ne: true}}}) {
+      edges {
+        node {
+          html
+          frontmatter {
+            title
+            date
+            draft
+            author
+            workoutsFrom
+            workoutsTo
+          }
+          fields {
+            slug
+          }
+        }
+      }
+    }
+  }
+`
+
+export default PostsPage;

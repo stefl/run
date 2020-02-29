@@ -44,7 +44,7 @@ function WorkoutAggregateStats({workouts}) {
   return <h2 className="text-l mb-4">
     <span className="mr-5 inline-block">
       <span className="inline-block mr-2"><Activity size={16} /></span> 
-      <span className="inline-block">{workouts.length} activities</span>
+      <span className="inline-block">{workouts.length} runs</span>
     </span>
     <span className="mr-5 inline-block">
       <span className="inline-block mr-2"><TrendingUp size={16} /></span> 
@@ -52,7 +52,7 @@ function WorkoutAggregateStats({workouts}) {
     </span>
     <span className="mr-5 inline-block">
       <span className="inline-block mr-2"><Watch size={16} /></span> 
-      <span className="inline-block">{secondsToHoursMinutesSeconds(totalTime)}</span>
+      <span className="inline-block">{secondsToHoursMinutesSeconds(totalTime)} running</span>
     </span>
   </h2>
 }

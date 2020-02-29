@@ -49,6 +49,10 @@ function Header() {
               title: `Progress`
             },
             {
+              route: `/posts`,
+              title: `Updates`
+            },
+            {
               route: `/story`,
               title: `Story`
             },

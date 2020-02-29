@@ -6,17 +6,18 @@ author: Stef Lewandowski
 workouts: true
 workoutsFrom: "2020-02-01"
 workoutsTo: "2020-02-29"
+image: "./two-months-to-go.jpg"
 ---
 
-Hello! Thanks so much for sponsoring me with my running challenge. It’s the end of February so I thought I’d send an update on how things are going. 
+Hello! It’s the end of February, two months to go until the London Marathon, so here's an update on how things are going with my Marathon challenge. 
 
 ## Fundraising update
-So far, we’re at £890 of my £1500 target! That’s great - thank you so much for your support!
+So far, we’re at [£936 of my £1500 target!](https://run.stef.io/donate) That’s great - thank you so much for your support!
 
 ## Blogging my progress 
-I have made a new running blog that you can check out to see all of my training. I’m writing and sharing photos as I go: https://run.stef.io
+I have made this new running blog so that anyone can follow my progress, writing and photos in one place.
 
-It probably won’t surprise you, but I’ve become quite interested in the data that you can collect whilst running. Speed, cadence, heart rate, and lots more. I’ve been recording all of my runs since the very first one in August, and I’ve uploaded them into Strava. But the problem is, most folks aren’t using it. So I rolled up my sleeves and I’ve made an automated blog based on all of my runs recorded in Strava. I know, I know, of course I did! And before you ask, no I’m not going to turn it into a startup. 
+It probably won’t surprise you, but I’ve become quite interested in the data that you can collect whilst running. Speed, cadence, heart rate, and lots more. I’ve been recording all of my runs since the very first one in August, and I’ve uploaded them [into Strava](https://www.strava.com/athletes/47920858). But the problem is, most folks aren’t using it. So I rolled up my sleeves and I’ve made an automated blog based on all of my runs recorded in Strava. I know, I know, of course I did! And before you ask, no I’m not going to turn it into a startup. 
 
 ## An update on my challenge: two half marathons and the London Marathon
 A few of you supported my fundraising back in January when my plan was to run one half marathon at the end of March. Things escalated when I was lucky enough to get a London Marathon place through my work. So I’m running two half marathon races this month and then on April 26th, a full marathon! 
@@ -26,7 +27,7 @@ If you donated via the Year of Colour / Half Marathon page, I’ve merged the to
 ## Progress so far
 It’s been somewhat surprising how intense the training for a marathon is. I should probably have read up on what it involves in advance, but where’s the fun in that? 
 
-As of today I’m now running 50km (31 per week, and for six weekends in a row now I’ve been running a half marathon distance or longer. 
+As of today I’m now running about 50km (31 per week, and for six weekends in a row now I’ve been running a half marathon distance or longer. 
 
 It’s been quite intense - I’m going out four days per week, and apparently it’s mainly all about “getting the miles in” so your body gets used to the strain. 
 
