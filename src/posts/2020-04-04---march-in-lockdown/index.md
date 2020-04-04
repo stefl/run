@@ -11,6 +11,10 @@ image: "./march-in-lockdown.jpg"
 
 It's the end of another month, so despite everything that is going on in the world, I thought it would be a good time to reflect on my running challenge for those of you who have been following along so far.
 
+## Starting the month on a high
+
+On the 1st of March I ran my first running event - the Big Half, which was brilliant. Sunny, but not too hot, and I felt strong and healthy. I was really pleased to run quicker than I thought I would and get [a personal best of 1:46:34](/workouts/2020/03/01-ea3058d7-7814-5a2e-bbc6-f83f07447bd5)!
+
 ## The London Marathon was postponed
 
 The big news, of course, was that the big target event I have been training for has been postponed. I knew coming into the month that this had to happen, and I felt a great deal of relief when it was finally confirmed. 
@@ -48,6 +52,3 @@ I don't want to run the full marathon distance because I think it's dangerous an
 ## Maintaining positivity and resilience
 
 Mainly, I'm doing my best to stay fit and healthy, and I'm finding that going out running is really helpful to reduce stress and help me think straight when my mind is spinning about all the terrible news. It's going to get pretty bad over the next few weeks. I've written [an update on Instagram about resilience](https://www.instagram.com/p/B-c4jdcJUtd/) that you might like to read too. Stay safe, everyone.
-
-
-
