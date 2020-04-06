@@ -3,9 +3,11 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { graphql } from 'gatsby'
 import Workout from '../components/Workout'
+import findImagesForWorkoutBasedOnExifDates from '../lib/findImagesForWorkoutBasedOnExifDates'
 
 function IndexPage({data}) {
   console.log(data)
+  const {allImageSharp, allStravaWorkout} = data
   return (
     <Layout>
       <SEO
@@ -13,9 +15,15 @@ function IndexPage({data}) {
         title="Stef's London Marathon Journey"
       />
 
-      <section className="text-left w-full">
-        {data.allStravaWorkout.nodes.map((stravaWorkout) => 
-          <Workout key={stravaWorkout.id} workout={stravaWorkout} detailed={false} />
+      <section className="text-left w-full m-auto" style={{maxWidth: '768px'}}>
+        {allStravaWorkout.nodes.map((stravaWorkout) => {
+          const images = findImagesForWorkoutBasedOnExifDates(stravaWorkout, allImageSharp)
+          return <Workout 
+            key={stravaWorkout.id} 
+            workout={stravaWorkout} 
+            detailed={false} 
+            images={images} />
+          }
         )}
       </section>
     </Layout>
@@ -24,7 +32,17 @@ function IndexPage({data}) {
 
 export const query = graphql`
   query HomePageQuery {
-    allStravaWorkout(sort: {order: DESC, fields: start_date}) {
+    allImageSharp(filter: {dateTakenTimestamp: {gt: 0}}) {
+      nodes {
+        fluid {
+          ...GatsbyImageSharpFluid
+          presentationWidth
+        }
+        dateTakenTimestamp
+      }
+    }
+
+    allStravaWorkout(sort: {order: DESC, fields: start_date}, filter: {distance: {gt: 1000}}) {
       nodes {
         image {
           childImageSharp {
@@ -66,9 +84,12 @@ export const query = graphql`
         average_cadence
         elev_high
         elev_low
+        elapsed_time
         id
         fields {
           slug
+          startTime
+          endTime
         }
       }
     }

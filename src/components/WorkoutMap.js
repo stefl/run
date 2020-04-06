@@ -1,4 +1,4 @@
-import { Map, Marker, Popup, Polyline, TileLayer } from 'react-leaflet-universal'
+import { Map, Marker, Popup, Polyline, TileLayer, withLeaflet } from 'react-leaflet'
 import React from 'react'
 import googlePolyline from 'google-polyline'
 import L from 'leaflet'
@@ -8,10 +8,17 @@ function WorkoutMap({polyline}) {
   if(typeof(window) === 'undefined') {
     return <div />
   }
-  return null
-  return <SizeMe>{({ size }) => 
-    <WorkoutMapCalculations polyline={polyline} size={size} />
-  }</SizeMe>
+  //return null
+
+  return <WorkoutMapCalculations polyline={polyline} />
+
+  // return <SizeMe>{({ size }) => 
+  //   <div>
+      
+  //     <WorkoutMapCalculations polyline={polyline} size={size} />
+
+  //   </div>
+  // }</SizeMe>
 }
 
 function WorkoutMapCalculations({polyline, size}) {
@@ -47,13 +54,35 @@ function WorkoutPolyLine({positions, center, zoom}) {
   if (typeof window === 'undefined') {
     return <div style={{height: '640px'}} />
   }
-  return <Map style={{height: '640px'}} zoom={zoom} center={center}>
-    <TileLayer
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-    />
-    <Polyline positions={positions}/>
-  </Map>
+
+  // var Stamen_TonerLite = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
+  //   attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  //   subdomains: 'abcd',
+  //   minZoom: 0,
+  //   maxZoom: 20,
+  //   ext: 'png'
+  // });
+  return <div>
+    <Map scrollWheelZoom={false} style={{height: '640px'}} zoom={zoom} center={center}>
+      <TileLayer
+        ext="png"
+        url="https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}"
+        attribution={`Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors`}
+      />
+      <Polyline positions={positions}/>
+    </Map>
+    <style jsx>{`
+                .map-root {
+              height: 100%;
+            }
+            .leaflet-container {
+             height: 640px !important;
+             width: 100%;
+             margin: 0 auto;
+           }
+       `}
+    </style>
+  </div>
 }
 
 export default WorkoutMap

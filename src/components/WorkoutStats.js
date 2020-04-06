@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { FastForward, Watch, TrendingUp, Zap, Activity } from 'react-feather';
+import { FastForward, Watch, TrendingUp, Zap, Activity, ExternalLink } from 'react-feather';
 
 function pad(num, size) {
     var s = num+"";
@@ -17,7 +17,7 @@ function secondsToHoursMinutesSeconds(seconds) {
 function WorkoutStats({workout} ) {
   const speed = Math.round(1 / (workout.average_speed * 60) * 100000) / 100
 
-  return <h2 className="text-l mb-4">
+  return <h2 className="text-l sm:text-l md:text-xl lg:text-2xl mb-4">
     <span className="mr-5 inline-block">
       <span className="inline-block mr-2"><TrendingUp size={16} /></span> 
       <span className="inline-block">{Math.round(workout.distance / 10) / 100} km</span>
@@ -26,9 +26,13 @@ function WorkoutStats({workout} ) {
       <span className="inline-block mr-2"><Watch size={16} /></span> 
       <span className="inline-block">{secondsToHoursMinutesSeconds(workout.moving_time)}</span>
     </span>
-    <span className="inline-block">
+    <span className="mr-5 inline-block">
       <span className="inline-block mr-2"><Zap size={16} /></span> 
       <span className="inline-block">{ Math.floor(speed)}:{pad(Math.round((speed*100) % 60), 2)} min/km</span>
+    </span>
+    <span className="inline-block">
+      <span className="inline-block mr-2"><ExternalLink size={16} /></span> 
+      <span className="inline-block"><a href={`https://strava.com/activities/${workout.strava_id}`}>Strava</a></span>
     </span>
   </h2>
 }
@@ -60,7 +64,7 @@ function WorkoutAggregateStats({workouts}) {
 
   return <div>
     <div>
-      <h2 className="text-l mb-2">
+      <h2 className="text-l sm:text-l md:text-xl lg:text-2xl mb-2">
         <span className="mr-5 inline-block">
           <span className="inline-block mr-2"><Activity size={16} /></span> 
           <span className="inline-block">{workouts.length} runs</span>

@@ -17,6 +17,7 @@ const getAccessTokenFromServer = config => {
 }
 
 const processWorkout = (workout, createNodeId, createContentDigest) => {
+  workout.strava_id = workout.id
   return Object.assign({}, workout, {
     id: createNodeId(`strava-${workout.id}`),
     parent: null,

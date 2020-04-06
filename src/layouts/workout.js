@@ -5,9 +5,10 @@ import { graphql, useStaticQuery } from 'gatsby'
 import Workout from '../components/Workout'
 import Link from 'gatsby-link'
 import WorkoutDonateCTA from '../components/WorkoutDonateCTA'
+import findImagesForWorkoutBasedOnExifDates from '../lib/findImagesForWorkoutBasedOnExifDates'
 
 function WorkoutPage({data}) {
-  const {stravaWorkout} = data
+  const {stravaWorkout, allImageSharp} = data
   return (
     <Layout>
       <SEO
@@ -17,8 +18,11 @@ function WorkoutPage({data}) {
         url={`https://run.stef.io/${stravaWorkout.fields.slug}/`}
       />
 
-      <section className="text-left" style={{maxWidth: '48rem'}}>
-        <Workout workout={stravaWorkout} detailed={true} />
+      <section className="text-left m-auto" style={{maxWidth: '48rem'}}>
+        <Workout 
+          workout={stravaWorkout} 
+          detailed={true} 
+          images={findImagesForWorkoutBasedOnExifDates(stravaWorkout, allImageSharp)} />
 
         <WorkoutDonateCTA />
         <div className="pt-16 pb-16 text-blue-500">
@@ -30,7 +34,18 @@ function WorkoutPage({data}) {
 }
 
 export const query = graphql`
-  query WorkoutPageQuery($slug: String!) {
+  query WorkoutPageQuery($slug: String! ) {
+
+    allImageSharp {
+      nodes {
+        fluid {
+          ...GatsbyImageSharpFluid
+          presentationWidth
+        }
+        dateTakenTimestamp
+      }
+    }
+
     stravaWorkout(fields: { slug: {eq: $slug} }) {
       image {
         childImageSharp {
@@ -70,11 +85,15 @@ export const query = graphql`
       achievement_count
       average_heartrate
       average_cadence
+      elapsed_time
       elev_high
       elev_low
       id
+      strava_id
       fields {
         slug
+        startTime
+        endTime
       }
     }
   }

@@ -43,6 +43,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/photos`,
+        name: `photos`,
+      },
+    },
+    {
       resolve: `gatsby-transformer-remark`,
       options: {
         gfm: true,
@@ -103,9 +110,19 @@ module.exports = {
         name: 'itemImage',
       }
     },
+    {
+      resolve: `gatsby-source-dropbox`,
+      options: {
+        accessToken: process.env.DROPBOX_ACCESS_TOKEN,
+        extensions: ['.jpg','.jpeg'],
+        //path: '/Apps/Run\ Stef',
+        recursive: true,
+      },
+    },
     `gatsby-transformer-yaml`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp-exif`,
     `gatsby-plugin-client-side-redirect`,
     {
       resolve: `gatsby-plugin-google-analytics`,

@@ -3,6 +3,7 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Post from "../components/Post"
 import Link from "gatsby-link"
+import { graphql } from 'gatsby'
 
 function PostsPage({data}) {
   return <Layout>
@@ -14,9 +15,11 @@ function PostsPage({data}) {
       <section className="text-left w-full pt-12">
         {data.allMarkdownRemark.edges.map((post) => {
           return (
-            <div>
+            <div className="mb-4" key={post.node.fields.slug}>
+              <p className="text-xs tracking-widest text-gray-500 mb-2">
+                {(new Date(post.node.frontmatter.date)).toLocaleString().replace()}
+              </p>
               <h1 className="text-2xl"><Link className="flex items-center no-underline text-blue-500" to={post.node.fields.slug}>{post.node.frontmatter.title}</Link></h1>
-              <h2>{post.node.frontmatter.date}</h2>
             </div>
           )}
         )}
@@ -26,7 +29,14 @@ function PostsPage({data}) {
 
 export const AllPostsQuery = graphql`
   query {
-    allMarkdownRemark(limit: 1000, filter: {frontmatter: {draft: {ne: true}}}) {
+    allMarkdownRemark(
+      limit: 1000
+      sort: {
+        fields: [frontmatter___date]
+        order: DESC
+      }
+      filter: {frontmatter: {draft: {ne: true}}}
+    ) {
       edges {
         node {
           html

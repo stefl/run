@@ -1,14 +1,15 @@
-import React from "react";
+import React, {Fragment} from "react";
 import NonStretchedImage from './NonStretchedImage'
 import SimpleFormat from './simpleFormat'
 import Img from "gatsby-image"
 import Link from "gatsby-link"
 import WorkoutMap from './WorkoutMap'
 import {WorkoutStats} from './WorkoutStats'
+import { useStaticQuery, graphql } from "gatsby"
 
 function WorkoutTitle({title, slug, detailed}) {
   const t = title.replace(/&nbsp;/g, ' ')
-  return <h1 className="text-3xl w-full overflow-hidden leading-tight mb-2">
+  return <h1 className="text-2xl md:text-3xl lg:text-4xl  w-full overflow-hidden leading-tight mb-2">
     {detailed ? <span>{t}</span> : <Link to={slug}>{t}</Link>}
   </h1>
 }
@@ -26,8 +27,9 @@ function WorkoutDescription({description}) {
 }
 
 function WorkoutImage({image}) {
+  const fluid = image.childImageSharp ? image.childImageSharp.fluid : image.fluid
   return <div className="mb-8 bg-gray-300 w-full">
-    <NonStretchedImage fluid={image.childImageSharp.fluid} />
+    <NonStretchedImage fluid={fluid} />
   </div>
 }
 
@@ -37,13 +39,13 @@ function WorkoutImage({image}) {
 // average_speed - meters per second
 // 
 
-function Workout({workout, detailed}) {
+function Workout({workout, detailed, images}) {
 
   const hasDescription = (workout.description && workout.description !== 'null')
 
   return <div 
     key={workout.id} 
-    className={hasDescription ? 'text-blue-800' : 'text-gray-500'} 
+    className={['m-auto', (hasDescription ? 'text-blue-800' : 'text-gray-500')].join(' ')} 
     style={{paddingTop: '2em', maxWidth: '768px'}}>
 
     <WorkoutMeta date={workout.start_date_local} />
@@ -52,7 +54,15 @@ function Workout({workout, detailed}) {
     
     <WorkoutStats workout={workout} />
 
-    {workout.image && <WorkoutImage image={workout.image} />}
+    {(workout.image || (images && (images.length > 0))) &&
+      <Fragment>
+        { (images && (images.length > 0)) ? 
+          <WorkoutImage image={images[0]} date={workout.start_date_local} />
+        :
+          <WorkoutImage image={workout.image} date={workout.start_date_local} />
+        }
+      </Fragment>
+    }
 
     {hasDescription && <WorkoutDescription description={workout.description} />}
 

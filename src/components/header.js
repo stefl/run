@@ -1,8 +1,8 @@
 import { graphql, useStaticQuery, Link } from "gatsby";
 import React, { useState } from "react";
 
-const navMenuClasses = "block md:inline-block mt-4 md:mt-0 md:ml-6 no-underline text-green-500"
-const navButtonClasses = "block md:inline-block mt-4 md:mt-0 md:ml-6 no-underline text-white bg-green-500 px-3 py-2 rounded"
+const navMenuClasses = "font-bold block md:inline-block mt-4 md:mt-0 md:ml-6 no-underline text-black-500"
+const navButtonClasses = "font-bold block md:inline-block mt-4 md:mt-0 md:ml-6 no-underline text-white bg-green-500 px-3 py-2 rounded"
 function Header() {
   const [isExpanded, toggleExpansion] = useState(false);
   const { site } = useStaticQuery(graphql`

@@ -2,6 +2,7 @@
 const path = require(`path`)
 const kebabCase = require(`lodash.kebabcase`)
 const { slash } = require(`gatsby-core-utils`)
+const { GraphQLFloat } = require("gatsby/graphql")
 
 async function createWorkoutPages(createPage, graphql) {
   const workoutLayout = path.resolve(`./src/layouts/workout.js`)
@@ -11,7 +12,8 @@ async function createWorkoutPages(createPage, graphql) {
       allStravaWorkout(sort: {order: DESC, fields: start_date}) {
         nodes {
           id
-          start_date
+          start_date_local
+          elapsed_time
           fields {
             slug
           }
@@ -32,6 +34,8 @@ async function createWorkoutPages(createPage, graphql) {
       component: workoutLayout,
       context: {
         slug: workout.fields.slug,
+        startTime: workout.fields.startTime,
+        endTime: workout.fields.endTime,
         prev: prev,
         next: next,
       },
@@ -73,6 +77,8 @@ async function createPostPages(createPage, graphql) {
       component: slash(workoutLayout),
       context: {
         slug: edge.node.fields.slug,
+        startTime: edge.node.fields.startTime,
+        endTime: edge.node.fields.endTime,
         workouts: edge.node.frontmatter.workouts,
         workoutsFrom: edge.node.frontmatter.workoutsFrom,
         workoutsTo: edge.node.frontmatter.workoutsTo,
@@ -98,6 +104,46 @@ exports.createPages = async function({ graphql, actions }) {
   
 }
 
+// exports.createSchemaCustomization = ({ actions }) => {
+//   const { createTypes } = actions
+//   const typeDefs = `
+//     type ImageSharp implements Node {
+//       dateTakenTimestamp: GraphQLFloat
+//     }
+//   `
+//   createTypes(typeDefs)
+// }
+
+// Store the date taken from exif on the ImageSharp node
+exports.setFieldsOnGraphQLNodeType = ({ type }) => {
+  if (type.name === `ImageSharp`) {
+    return {
+      dateTakenTimestamp: {
+        type: GraphQLFloat,
+        resolve: source => {
+          //console.log('Resolve dateTakenTimestamp')
+          try {
+            if(source.fields && source.fields.exif && source.fields.exif.meta && source.fields.exif.meta.dateTaken) {
+              const gotTime = new Date(source.fields.exif.meta.dateTaken).getTime();
+              //console.log('Got a time', gotTime)
+              return gotTime
+            } else {
+              //console.log('Fall back to zero float')
+              return 0.0
+            }
+          } catch(e) {
+            //console.log(`Error with resolving dateTakenTimestamp`, e)
+            return 0.0
+          }
+        }
+     }
+   };
+  }
+
+  // by default return empty object
+  return {};
+};
+
 exports.onCreateNode = async function ({ node, actions, getNode }) {
   const { createNodeField, createPage } = actions
   if (node.internal.type === `StravaWorkout`) {
@@ -110,10 +156,26 @@ exports.onCreateNode = async function ({ node, actions, getNode }) {
       .split("/")
     const url = `/workouts/${year}/${month}/${day}-${node.id}`
 
+    const timestamp = new Date(node.start_date_local).getTime()
+    const startTime = timestamp - 3600000 // 1 hour before
+    const endTime = timestamp + (node.elapsed_time * 1000)  + 3600000 // 1 hour after
+
     await createNodeField({
       name: `slug`,
       node,
       value: url,
+    })
+
+    await createNodeField({
+      name: `startTime`,
+      node,
+      value: startTime,
+    })
+
+    await createNodeField({
+      name: `endTime`,
+      node,
+      value: endTime,
     })
   }
 

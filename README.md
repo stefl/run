@@ -18,3 +18,9 @@ Features in the works:
 You can see it in action on my site: [run.stef.io](https://run.stef.io)
 
 To use this, you'll need to also deploy the Strava authentication middleware server that I've made, which is in a separate repo. This handles refreshing your access token so that you can deploy without re-authenticating each time.
+
+
+# Large image files
+These are stored using Git LFS https://git-lfs.github.com/
+
+`brew install git-lfs`
