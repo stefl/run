@@ -20,7 +20,7 @@ function PostPage({data}) {
         image={post.frontmatter.image ? post.frontmatter.image.childImageSharp.fluid : null}
       />
 
-      <section className="text-left pt-12 pb-8" style={{maxWidth: '48rem'}}>
+      <section className="text-left pt-12 pb-8 m-auto" style={{maxWidth: '48rem'}}>
         <Post post={post} workouts={workouts} />
       </section>
     </Layout>

@@ -12,7 +12,7 @@ function PostsPage({data}) {
         title="Stef's London Marathon Journey"
       />
 
-      <section className="text-left w-full pt-12">
+      <section className="text-left w-full m-auto pt-12" style={{maxWidth: '768px'}}>
         {data.allMarkdownRemark.edges.map((post) => {
           return (
             <div className="mb-4" key={post.node.fields.slug}>

@@ -12,7 +12,7 @@ function Layout(props) {
   return (
     <div className="font-sans min-h-screen text-gray-900 w-full">
 
-      <main className="md:justify-center mx-auto px-4 py-8 md:p-8 w-full">
+      <main className="md:justify-center mx-auto py-8 md:p-8 w-full">
         
         <Header />
         {!isStoryPage && <section className="p-4 bg-gray-200 mt-8 w-full">

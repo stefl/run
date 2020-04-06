@@ -15,8 +15,8 @@ function WorkoutTitle({title, slug, detailed}) {
 }
 
 function WorkoutMeta({date}) {
-  return <p className="text-xs tracking-widest text-gray-500 mb-2">
-    {(new Date(date)).toLocaleString().replace()}
+  return <p className="text-xs tracking-widest text-gray-500 mb-2 uppercase">
+    {(new Date(date)).toLocaleString().replace()} – Run log
   </p>
 }
 
@@ -48,11 +48,13 @@ function Workout({workout, detailed, images}) {
     className={['m-auto', (hasDescription ? 'text-blue-800' : 'text-gray-500')].join(' ')} 
     style={{paddingTop: '2em', maxWidth: '768px'}}>
 
-    <WorkoutMeta date={workout.start_date_local} />
+    <div className="px-4">
+      <WorkoutMeta date={workout.start_date_local} />
 
-    <WorkoutTitle title={workout.name} detailed={detailed} slug={workout.fields.slug} />
-    
-    <WorkoutStats workout={workout} />
+      <WorkoutTitle title={workout.name} detailed={detailed} slug={workout.fields.slug} />
+      
+      <WorkoutStats workout={workout} />
+    </div>
 
     {(workout.image || (images && (images.length > 0))) &&
       <Fragment>
@@ -64,7 +66,10 @@ function Workout({workout, detailed, images}) {
       </Fragment>
     }
 
-    {hasDescription && <WorkoutDescription description={workout.description} />}
+    {hasDescription && <div className="px-4">
+        <WorkoutDescription description={workout.description} />
+      </div>
+    }
 
     {detailed && (typeof(window) !== 'undefined') &&
       <div>
