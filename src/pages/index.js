@@ -86,6 +86,7 @@ export const query = graphql`
         elev_low
         elapsed_time
         id
+        strava_id
         fields {
           slug
           startTime
