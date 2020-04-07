@@ -16,6 +16,8 @@ async function createWorkoutPages(createPage, graphql) {
           elapsed_time
           fields {
             slug
+            startTime
+            endTime
           }
         }
       }
@@ -69,16 +71,14 @@ async function createPostPages(createPage, graphql) {
     }
   `)
 
-  console.log({data})
-
   data.allMarkdownRemark.edges.forEach(edge => {
     createPage({
       path: edge.node.fields.slug, // required
       component: slash(workoutLayout),
       context: {
         slug: edge.node.fields.slug,
-        startTime: edge.node.fields.startTime,
-        endTime: edge.node.fields.endTime,
+        startTime: new Date(edge.node.frontmatter.workoutsFrom).getTime() - 360000,
+        endTime: new Date(edge.node.frontmatter.workoutsTo).getTime() + 360000,
         workouts: edge.node.frontmatter.workouts,
         workoutsFrom: edge.node.frontmatter.workoutsFrom,
         workoutsTo: edge.node.frontmatter.workoutsTo,

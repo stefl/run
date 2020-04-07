@@ -5,8 +5,9 @@ import {WorkoutAggregateStats} from './WorkoutStats'
 import WorkoutDonateCTA from './WorkoutDonateCTA'
 import Workout from './Workout'
 import NonStretchedImage from './NonStretchedImage'
+import findImagesForWorkoutBasedOnExifDates from '../lib/findImagesForWorkoutBasedOnExifDates'
 
-function Post({post, workouts}) {
+function Post({post, workouts, images}) {
   return <div>
     <h1 className="text-3xl w-full overflow-hidden leading-tight mb-6">
       {post.frontmatter.title}
@@ -44,7 +45,12 @@ function Post({post, workouts}) {
             All the updates I posted
           </h1>
           {workouts.map((stravaWorkout) => 
-            <Workout key={stravaWorkout.id} workout={stravaWorkout} detailed={false} />
+            <Workout 
+              key={stravaWorkout.id} 
+              workout={stravaWorkout} 
+              detailed={false} 
+              images={findImagesForWorkoutBasedOnExifDates(stravaWorkout, images)} 
+            />
           )}
         </div>
 

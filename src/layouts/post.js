@@ -8,7 +8,7 @@ import Post from '../components/Post'
 import ContentRenderer from '../components/ContentRenderer'
 
 function PostPage({data}) {
-  const {markdownRemark, allStravaWorkout} = data
+  const {markdownRemark, allStravaWorkout, allImageSharp} = data
   const post = markdownRemark
   const workouts = allStravaWorkout.nodes
   return (
@@ -21,14 +21,14 @@ function PostPage({data}) {
       />
 
       <section className="text-left pt-12 pb-8 m-auto" style={{maxWidth: '48rem'}}>
-        <Post post={post} workouts={workouts} />
+        <Post post={post} workouts={workouts} images={allImageSharp} />
       </section>
     </Layout>
   );
 }
 
 export const pageQuery = graphql`
-  query($slug: String!, $workoutsFrom: Date!, $workoutsTo: Date!) {
+  query($slug: String!, $workoutsFrom: Date!, $workoutsTo: Date!, $startTime: Float, $endTime: Float) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       htmlAst
       fields {
@@ -47,6 +47,16 @@ export const pageQuery = graphql`
             }
           }
         }
+      }
+    }
+
+    allImageSharp(filter: {dateTakenTimestamp: {gte: $startTime, lte: $endTime}}) {
+      nodes {
+        fluid {
+          ...GatsbyImageSharpFluid
+          presentationWidth
+        }
+        dateTakenTimestamp
       }
     }
 
@@ -95,6 +105,8 @@ export const pageQuery = graphql`
         id
         fields {
           slug
+          startTime
+          endTime
         }
       }
     }

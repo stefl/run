@@ -34,9 +34,9 @@ function WorkoutPage({data}) {
 }
 
 export const query = graphql`
-  query WorkoutPageQuery($slug: String! ) {
+  query WorkoutPageQuery($slug: String!, $startTime: Float, $endTime: Float ) {
 
-    allImageSharp {
+    allImageSharp(filter: {dateTakenTimestamp: {gte: $startTime, lte: $endTime}}) {
       nodes {
         fluid {
           ...GatsbyImageSharpFluid
