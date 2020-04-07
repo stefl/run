@@ -4,6 +4,7 @@ import SEO from "../components/seo";
 import Post from "../components/Post"
 import Link from "gatsby-link"
 import { graphql } from 'gatsby'
+import NonStretchedImage from '../components/NonStretchedImage'
 
 function PostsPage({data}) {
   return <Layout>
@@ -12,14 +13,25 @@ function PostsPage({data}) {
         title="Stef's London Marathon Journey"
       />
 
-      <section className="text-left w-full m-auto pt-12" style={{maxWidth: '768px'}}>
-        {data.allMarkdownRemark.edges.map((post) => {
+      <section className="text-left m-auto pt-12 px-4 max-w-md">
+        {data.allMarkdownRemark.edges.map((p) => {
+          const post = p.node
           return (
-            <div className="mb-4" key={post.node.fields.slug}>
-              <p className="text-xs tracking-widest text-gray-500 mb-2">
-                {(new Date(post.node.frontmatter.date)).toLocaleString().replace()}
-              </p>
-              <h1 className="text-2xl"><Link className="flex items-center no-underline text-blue-500" to={post.node.fields.slug}>{post.node.frontmatter.title}</Link></h1>
+            <div className="mb-8" key={post.fields.slug}>
+              <div className="px-4">
+                <p className="text-xs tracking-widest text-gray-500 mb-2">
+                  {(new Date(post.frontmatter.date)).toLocaleString().replace().split(',')[0]}
+                </p>
+                <h1 className="text-2xl mb-4"><Link 
+                  className="flex items-center no-underline text-blue-500" 
+                  to={post.fields.slug}>{post.frontmatter.title}</Link>
+                </h1>
+              </div>
+              {post.frontmatter.image &&
+                <div className="bg-gray-300 w-full">
+                  <NonStretchedImage fluid={post.frontmatter.image.childImageSharp.fluid} />
+                </div>
+              }
             </div>
           )}
         )}
@@ -47,6 +59,13 @@ export const AllPostsQuery = graphql`
             author
             workoutsFrom
             workoutsTo
+            image {
+              childImageSharp {
+                fluid(maxWidth: 768) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
           }
           fields {
             slug
