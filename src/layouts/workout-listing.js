@@ -4,13 +4,22 @@ import SEO from "../components/seo";
 import { graphql } from 'gatsby'
 import Workout from '../components/Workout'
 import findImagesForWorkoutBasedOnExifDates from '../lib/findImagesForWorkoutBasedOnExifDates'
+import {Link} from 'gatsby'
+import { ArrowLeft, ArrowRight } from 'react-feather';
 
-function IndexPage({data}) {
-  console.log(data)
-  const {allImageSharp, allDropboxNode, allStravaWorkout} = data
-  const mainImages = allDropboxNode.edges.map((d) => d.node.localFile.childImageSharp)
+function PostListingPage({data, pageContext}) {
+  const {
+    numPages,
+    currentPage,
+    prev,
+    next
+  } = pageContext
 
-  //const mainImages = []
+  const {allDropboxNode, allStravaWorkout} = data
+  const mainImages = allDropboxNode
+    .edges.filter((a) => a && a.node && a.node.localFile)
+    .map((d) => d.node.localFile.childImageSharp)
+
   return (
     <Layout>
       <SEO
@@ -29,14 +38,26 @@ function IndexPage({data}) {
           }
         )}
       </section>
+
+      <div className="flex mb-16 mt-16 text-center">
+        <div className="w-1/3">
+          {prev && <Link to={prev}><ArrowLeft className="inline-block" /></Link>}
+        </div>
+        <div className="w-1/3">
+          {currentPage} of {numPages}
+        </div>
+        <div className="w-1/3">
+          {next && <Link to={next}><ArrowRight className="inline-block" /></Link>}
+        </div>
+      </div>
     </Layout>
   );
 }
 
 export const query = graphql`
-  query HomePageQuery {
+  query PostListingPageQuery($skip: Int!, $limit: Int!) {
 
-    allDropboxNode(filter: {path: {regex: "/Main.+/"}}, limit: 1000) {
+    allDropboxNode(filter: {path: {regex: "/Main.+/"}}, limit: 10000) {
       edges {
         node {
           localFile {
@@ -52,7 +73,12 @@ export const query = graphql`
       }
     }
 
-    allStravaWorkout(sort: {order: DESC, fields: start_date}, filter: {distance: {gt: 1000}}) {
+    allStravaWorkout(
+      limit: $limit
+      skip: $skip
+      sort: {order: DESC, fields: start_date} 
+      filter: {distance: {gt: 1000}}
+    ) {
       nodes {
         image {
           childImageSharp {
@@ -107,4 +133,4 @@ export const query = graphql`
   }
 `
 
-export default IndexPage;
+export default PostListingPage;

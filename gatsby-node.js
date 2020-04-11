@@ -6,7 +6,7 @@ const { GraphQLFloat } = require("gatsby/graphql")
 
 async function createWorkoutPages(createPage, graphql) {
   const workoutLayout = path.resolve(`./src/layouts/workout.js`)
-
+  const workoutsListingLayout = path.resolve(`./src/layouts/workout.js`)
   const { data } = await graphql(`
     {
       allStravaWorkout(sort: {order: DESC, fields: start_date}) {
@@ -43,6 +43,38 @@ async function createWorkoutPages(createPage, graphql) {
       },
     })
   })
+
+  const workoutsPerPage = 6
+  const numPages = Math.ceil(workouts.length / workoutsPerPage)
+  Array.from({ length: numPages }).forEach((_, i) => {
+    let prevPage = null
+    if(i > 0) {
+      if(i === 1) {
+        prevPage = '/'
+      } else {
+        prevPage = `/workouts/page/${i}`
+      }
+    }
+
+    let nextPage = null
+    if(i < (workouts.length - 1)) {
+      nextPage = `/workouts/page/${i + 2}`
+    }
+
+    createPage({
+      path: i === 0 ? `/` : `/workouts/page/${i + 1}`,
+      component: path.resolve("./src/layouts/workout-listing.js"),
+      context: {
+        limit: workoutsPerPage,
+        skip: i * workoutsPerPage,
+        numPages,
+        currentPage: i + 1,
+        prev: prevPage,
+        next: nextPage
+      },
+    })
+  })
+
   return
 }
 

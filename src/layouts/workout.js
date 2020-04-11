@@ -3,11 +3,18 @@ import Layout from "../components/layout";
 import SEO from "../components/seo";
 import { graphql, useStaticQuery } from 'gatsby'
 import Workout from '../components/Workout'
-import Link from 'gatsby-link'
 import WorkoutDonateCTA from '../components/WorkoutDonateCTA'
+import {Link} from 'gatsby'
+import { ArrowLeft, ArrowRight, List} from 'react-feather';
 
-function WorkoutPage({data}) {
+function WorkoutPage({data, pageContext}) {
   const {stravaWorkout, mainImages, otherImages} = data
+  const {
+    numPages,
+    currentPage,
+    prev,
+    next
+  } = pageContext
   const mainImagesToDisplay = mainImages.edges.map((d) => d.node.localFile.childImageSharp)
   const otherImagesToDisplay = otherImages.edges.map((d) => d.node.localFile.childImageSharp)
   return (
@@ -31,6 +38,17 @@ function WorkoutPage({data}) {
           <Link to="/">View all runs</Link>
         </div>
       </section>
+      <div className="flex mb-16 mt-16 text-center">
+        <div className="w-1/3">
+          {prev && <Link to={prev.fields.slug}><ArrowLeft className="inline-block" /></Link>}
+        </div>
+        <div className="w-1/3">
+          <Link to='/'><List className="inline-block" /></Link>
+        </div>
+        <div className="w-1/3">
+          {next && <Link to={next.fields.slug}><ArrowRight className="inline-block" /></Link>}
+        </div>
+      </div>
     </Layout>
   );
 }
