@@ -14,8 +14,8 @@ function StoryPage() {
         url="https://run.stef.io/story"
       />
 
-      <section className="pt-8">
-        <div className="mx-4">
+      <section className="pt-8 w-full">
+        <div className="px-4 max-w-xl m-auto">
           <h2 className="pb-4 text-2xl">Hi, I'm Stef!</h2>
 
           <p className={pClasses}>I'm a designer and technologist living in South London, UK. You can find me on <a href="https://twitter.com/stef" className="text-blue-500">Twitter</a> and <a href="https://instagram.com/stef" className="text-blue-500">Instagram</a> as @stef. This is my running blog that I've built so that folks who don't <a className="text-blue-500" href="https://www.strava.com/athletes/47920858">follow me on Strava</a> can also see my updates.</p>
