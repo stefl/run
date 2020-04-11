@@ -3,6 +3,7 @@
 .cache
 ._cache
 _.cache
+..bfg-report
 node_modules
 yarn-error.log
 
