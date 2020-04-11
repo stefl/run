@@ -42,13 +42,13 @@ module.exports = {
         name: `posts`,
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/src/photos`,
-        name: `photos`,
-      },
-    },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     path: `${__dirname}/src/photos`,
+    //     name: `photos`,
+    //   },
+    // },
     {
       resolve: `gatsby-transformer-remark`,
       options: {
