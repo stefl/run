@@ -1,6 +1,7 @@
 function findImagesForWorkoutBasedOnExifDates(stravaWorkout, allImageSharp) {
   const {startTime, endTime} = stravaWorkout.fields  
-  const images = allImageSharp.nodes.filter((i) => ((i.dateTakenTimestamp >= startTime) && (i.dateTakenTimestamp <= endTime)))
+  let nodes = (allImageSharp && allImageSharp.nodes) ? allImageSharp.nodes : allImageSharp
+  const images = nodes.filter((i) => ((i.dateTakenTimestamp >= startTime) && (i.dateTakenTimestamp <= endTime)))
   return images
 }
 

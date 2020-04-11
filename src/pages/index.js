@@ -7,7 +7,10 @@ import findImagesForWorkoutBasedOnExifDates from '../lib/findImagesForWorkoutBas
 
 function IndexPage({data}) {
   console.log(data)
-  const {allImageSharp, allStravaWorkout} = data
+  const {allImageSharp, allDropboxNode, allStravaWorkout} = data
+  const mainImages = allDropboxNode.edges.map((d) => d.node.localFile.childImageSharp)
+
+  //const mainImages = []
   return (
     <Layout>
       <SEO
@@ -17,7 +20,7 @@ function IndexPage({data}) {
 
       <section className="text-left w-full m-auto" style={{maxWidth: '768px'}}>
         {allStravaWorkout.nodes.map((stravaWorkout) => {
-          const images = findImagesForWorkoutBasedOnExifDates(stravaWorkout, allImageSharp)
+          const images = findImagesForWorkoutBasedOnExifDates(stravaWorkout, mainImages)
           return <Workout 
             key={stravaWorkout.id} 
             workout={stravaWorkout} 
@@ -32,13 +35,20 @@ function IndexPage({data}) {
 
 export const query = graphql`
   query HomePageQuery {
-    allImageSharp(filter: {dateTakenTimestamp: {gt: 0}}) {
-      nodes {
-        fluid {
-          ...GatsbyImageSharpFluid
-          presentationWidth
+
+    allDropboxNode(filter: {path: {regex: "/Main.+/"}}, limit: 1000) {
+      edges {
+        node {
+          localFile {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid
+                presentationWidth
+              }
+              dateTakenTimestamp
+            }
+          }          
         }
-        dateTakenTimestamp
       }
     }
 

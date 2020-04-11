@@ -5,10 +5,11 @@ import { graphql, useStaticQuery } from 'gatsby'
 import Workout from '../components/Workout'
 import Link from 'gatsby-link'
 import WorkoutDonateCTA from '../components/WorkoutDonateCTA'
-import findImagesForWorkoutBasedOnExifDates from '../lib/findImagesForWorkoutBasedOnExifDates'
 
 function WorkoutPage({data}) {
-  const {stravaWorkout, allImageSharp} = data
+  const {stravaWorkout, mainImages, otherImages} = data
+  const mainImagesToDisplay = mainImages.edges.map((d) => d.node.localFile.childImageSharp)
+  const otherImagesToDisplay = otherImages.edges.map((d) => d.node.localFile.childImageSharp)
   return (
     <Layout>
       <SEO
@@ -22,7 +23,8 @@ function WorkoutPage({data}) {
         <Workout 
           workout={stravaWorkout} 
           detailed={true} 
-          images={findImagesForWorkoutBasedOnExifDates(stravaWorkout, allImageSharp)} />
+          images={mainImagesToDisplay} 
+          otherImages={otherImagesToDisplay} />
 
         <WorkoutDonateCTA />
         <div className="pt-16 pb-16 text-blue-500">
@@ -36,13 +38,41 @@ function WorkoutPage({data}) {
 export const query = graphql`
   query WorkoutPageQuery($slug: String!, $startTime: Float, $endTime: Float ) {
 
-    allImageSharp(filter: {dateTakenTimestamp: {gte: $startTime, lte: $endTime}}) {
-      nodes {
-        fluid {
-          ...GatsbyImageSharpFluid
-          presentationWidth
+    mainImages: allDropboxNode(filter: {
+      path: {regex: "/Main.+/"},
+      localFile: {childImageSharp: {dateTakenTimestamp: {gte: $startTime, lte: $endTime}}}
+    }, limit: 1000) {
+      edges {
+        node {
+          localFile {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid
+                presentationWidth
+              }
+              dateTakenTimestamp
+            }
+          }          
         }
-        dateTakenTimestamp
+      }
+    }
+
+    otherImages: allDropboxNode(filter: {
+      path: {regex: "/Other.+/"},
+      localFile: {childImageSharp: {dateTakenTimestamp: {gte: $startTime, lte: $endTime}}}
+    }, limit: 1000) {
+      edges {
+        node {
+          localFile {
+            childImageSharp {
+              fluid {
+                ...GatsbyImageSharpFluid
+                presentationWidth
+              }
+              dateTakenTimestamp
+            }
+          }          
+        }
       }
     }
 

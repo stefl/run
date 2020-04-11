@@ -39,7 +39,7 @@ function WorkoutImage({image}) {
 // average_speed - meters per second
 // 
 
-function Workout({workout, detailed, images}) {
+function Workout({workout, detailed, images, otherImages}) {
 
   const hasDescription = (workout.description && workout.description !== 'null')
 
@@ -59,9 +59,9 @@ function Workout({workout, detailed, images}) {
     {(workout.image || (images && (images.length > 0))) &&
       <Fragment>
         { (images && (images.length > 0)) ? 
-          <WorkoutImage image={images[0]} date={workout.start_date_local} />
+          <WorkoutImage image={images[0]} />
         :
-          <WorkoutImage image={workout.image} date={workout.start_date_local} />
+          <WorkoutImage image={workout.image} />
         }
       </Fragment>
     }
@@ -69,6 +69,14 @@ function Workout({workout, detailed, images}) {
     {hasDescription && <div className="px-4">
         <WorkoutDescription description={workout.description} />
       </div>
+    }
+
+    {otherImages && (otherImages.length > 0) &&
+      <Fragment>
+        {otherImages.map(image => {
+          return <WorkoutImage key={image.id} image={image} />
+        })}
+      </Fragment>
     }
 
     {detailed && (typeof(window) !== 'undefined') &&
